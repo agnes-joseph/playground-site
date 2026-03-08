@@ -1,14 +1,25 @@
-// Bento Grid Exploration: 4 Editorial/Scrapbook Aesthetic Variations
-// Using existing design system: cream, mint, neutral palettes
+// Bento Grid Exploration: 2 Aesthetic Variations
+// 1. Minimal (Shop/Stripe style) - Clean, subtle, product-focused
+// 2. Vibrant (Givingli/Amie style) - Colorful card backgrounds
+
+// Reference images for portfolio cards
+const images = {
+  branding: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&h=600&fit=crop',
+  ecommerce: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=600&fit=crop',
+  mobile: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop',
+  editorial: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=600&fit=crop',
+  photography: 'https://images.unsplash.com/photo-1493863641943-9b68992a8d07?w=800&h=600&fit=crop',
+  dashboard: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=1000&fit=crop',
+}
 
 // Mock data with different spans
 const mockProjects = [
-  { id: 1, title: 'Brand Identity System', type: 'Branding', span: 6, description: 'Complete visual identity for a fintech startup' },
-  { id: 2, title: 'E-Commerce Platform', type: 'Development', span: 6, description: 'Full-stack shopping experience' },
-  { id: 3, title: 'Mobile App Design', type: 'UI/UX', span: 4, description: 'iOS fitness tracking app' },
-  { id: 4, title: 'Editorial Spread', type: 'Print', span: 4, description: 'Magazine layout design' },
-  { id: 5, title: 'Photography', type: 'Art Direction', span: 4, description: 'Product photography series' },
-  { id: 6, title: 'Dashboard Analytics', type: 'Development', span: 12, description: 'Real-time data visualization platform with complex chart systems' },
+  { id: 1, title: 'Brand Identity System', type: 'Branding', span: 6, description: 'Complete visual identity for a fintech startup', image: images.branding },
+  { id: 2, title: 'E-Commerce Platform', type: 'Development', span: 6, description: 'Full-stack shopping experience', image: images.ecommerce },
+  { id: 3, title: 'Mobile App Design', type: 'UI/UX', span: 4, description: 'iOS fitness tracking app', image: images.mobile },
+  { id: 4, title: 'Editorial Spread', type: 'Print', span: 4, description: 'Magazine layout design', image: images.editorial },
+  { id: 5, title: 'Photography', type: 'Art Direction', span: 4, description: 'Product photography series', image: images.photography },
+  { id: 6, title: 'Dashboard Analytics', type: 'Development', span: 12, description: 'Real-time data visualization platform with complex chart systems', image: images.dashboard },
 ]
 
 const colSpan = {
@@ -18,68 +29,42 @@ const colSpan = {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// VARIATION 1: BOLD EDITORIAL
-// Strong typographic hierarchy, thick borders, confident but warm
-// ─────────────────────────────────────────────────────────────────────────────
-function BoldCard({ project }) {
-  const accents = ['bg-mint-100', 'bg-cream-300', 'bg-mint-200', 'bg-cream-200']
-  const accent = accents[project.id % accents.length]
-  
-  return (
-    <div className={`${accent} h-full border-2 border-neutral-300 flex flex-col p-6 group hover:-translate-y-0.5 transition-transform duration-200`}>
-      <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-200">
-        {project.type}
-      </span>
-      <h3 className="font-lora font-semibold text-xl sm:text-2xl leading-tight text-neutral-300 mt-auto">
-        {project.title}
-      </h3>
-      <div className="w-8 h-0.5 bg-neutral-300 mt-4 group-hover:w-12 transition-all duration-200" />
-    </div>
-  )
-}
-
-function BoldGrid() {
-  return (
-    <section className="bg-cream-100 px-8 py-16">
-      <div className="max-w-4xl mx-auto flex flex-col gap-10">
-        <div className="flex items-end justify-between border-b-2 border-neutral-300 pb-4">
-          <h2 className="font-lora font-semibold text-[1.802rem] leading-[130%] text-neutral-300">
-            Bold Editorial
-          </h2>
-          <span className="font-mono text-xs text-neutral-200">01</span>
-        </div>
-        <div className="grid grid-cols-12 gap-4">
-          {mockProjects.map((project) => (
-            <div key={project.id} className={`${colSpan[project.span]} min-h-[220px]`}>
-              <BoldCard project={project} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// VARIATION 2: MINIMAL
-// Lots of whitespace, barely-there borders, quiet and restrained
+// VARIATION 1: MINIMAL (Shop/Stripe Style)
+// Clean white cards, subtle rounded corners, soft shadows, product imagery
 // ─────────────────────────────────────────────────────────────────────────────
 function MinimalCard({ project }) {
+  const isWide = project.span === 12
+  
   return (
-    <div className="h-full bg-neutral-0 border border-cream-300 rounded-sm flex flex-col justify-between p-8 group hover:border-cream-400 transition-colors duration-300">
-      <div className="flex items-start justify-between">
-        <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-100 font-geist">
+    <div className="h-full bg-neutral-0 rounded-2xl border border-cream-200 flex flex-col overflow-hidden group hover:shadow-lg hover:shadow-cream-300/30 transition-all duration-300">
+      {/* Image area */}
+      <div className={`relative ${isWide ? 'h-48 sm:h-64' : 'h-36 sm:h-44'} overflow-hidden bg-cream-200`}>
+        <img 
+          src={project.image} 
+          alt={project.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+      </div>
+      
+      {/* Content */}
+      <div className="flex-1 p-5 sm:p-6 flex flex-col">
+        <span className="font-geist text-[11px] uppercase tracking-[0.1em] text-neutral-100">
           {project.type}
         </span>
-        <span className="text-[10px] text-cream-400 font-mono">
-          0{project.id}
-        </span>
-      </div>
-      <div className="mt-auto">
-        <h3 className="font-lora font-normal text-lg text-neutral-300 leading-snug">
+        <h3 className="font-lora text-lg text-neutral-300 mt-2 leading-snug">
           {project.title}
         </h3>
-        <div className="w-4 h-px bg-cream-400 mt-4 group-hover:w-8 transition-all duration-300" />
+        <p className="font-geist text-sm text-neutral-200 mt-2 line-clamp-2 leading-relaxed">
+          {project.description}
+        </p>
+        
+        {/* Learn more link */}
+        <div className="flex items-center gap-2 mt-auto pt-4">
+          <span className="font-geist text-sm text-neutral-300">Learn more</span>
+          <svg className="w-4 h-4 text-neutral-300 group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </div>
       </div>
     </div>
   )
@@ -87,17 +72,23 @@ function MinimalCard({ project }) {
 
 function MinimalGrid() {
   return (
-    <section className="bg-cream-200 px-8 py-16">
-      <div className="max-w-4xl mx-auto flex flex-col gap-12">
-        <div className="flex flex-col gap-1">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-200 font-mono">Style</span>
-          <h2 className="font-lora text-[1.802rem] leading-[130%] text-neutral-300">
+    <section className="bg-cream-100 px-6 sm:px-8 py-16 sm:py-20">
+      <div className="max-w-5xl mx-auto flex flex-col gap-12">
+        {/* Section header */}
+        <div className="flex flex-col gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-200">Style 01</span>
+          <h2 className="font-lora text-[1.802rem] sm:text-[2.25rem] leading-[130%] text-neutral-300">
             Minimal
           </h2>
+          <p className="font-geist text-neutral-200 mt-1 max-w-lg leading-relaxed">
+            Clean, product-focused cards inspired by Shop and Stripe. White backgrounds, subtle shadows, smooth interactions.
+          </p>
         </div>
-        <div className="grid grid-cols-12 gap-3">
+        
+        {/* Grid */}
+        <div className="grid grid-cols-12 gap-4 sm:gap-5">
           {mockProjects.map((project) => (
-            <div key={project.id} className={`${colSpan[project.span]} min-h-[200px]`}>
+            <div key={project.id} className={`${colSpan[project.span]}`}>
               <MinimalCard project={project} />
             </div>
           ))}
@@ -108,122 +99,84 @@ function MinimalGrid() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// VARIATION 3: EDITORIAL SCRAPBOOK
-// Magazine-inspired, layered feel, mixed type, handcrafted aesthetic
+// VARIATION 2: VIBRANT (Givingli/Amie Style)
+// Colorful card backgrounds, playful, friendly, bold color blocks
 // ─────────────────────────────────────────────────────────────────────────────
-function EditorialCard({ project, index }) {
-  const isFeature = project.span === 12 || index === 0
-  const rotations = ['-rotate-0.5', 'rotate-0.5', '-rotate-1', 'rotate-0', 'rotate-0.5', '-rotate-0.5']
-  const rotation = rotations[index % rotations.length]
+
+// Extended color palette for vibrant cards (keeping editorial/scrapbook feel)
+const vibrantColors = [
+  { bg: 'bg-mint-100', accent: 'text-mint-400', border: 'border-mint-200' },
+  { bg: 'bg-[#fef3c7]', accent: 'text-amber-700', border: 'border-amber-200' }, // warm yellow
+  { bg: 'bg-[#fce7f3]', accent: 'text-pink-700', border: 'border-pink-200' }, // soft pink
+  { bg: 'bg-[#e0e7ff]', accent: 'text-indigo-700', border: 'border-indigo-200' }, // soft blue
+  { bg: 'bg-cream-200', accent: 'text-neutral-300', border: 'border-cream-300' },
+  { bg: 'bg-[#d1fae5]', accent: 'text-emerald-700', border: 'border-emerald-200' }, // soft green
+]
+
+function VibrantCard({ project, index }) {
+  const colors = vibrantColors[index % vibrantColors.length]
+  const isWide = project.span === 12
   
   return (
-    <div className={`h-full bg-neutral-0 border-t border-cream-400 flex flex-col group ${rotation} hover:rotate-0 transition-transform duration-300`}>
-      <div className="flex-1 p-6 sm:p-8 flex flex-col">
-        <div className="flex items-baseline gap-4 mb-auto">
-          <span className="font-lora italic text-neutral-100 text-sm">
-            No.{String(project.id).padStart(2, '0')}
-          </span>
-          <span className="text-[9px] uppercase tracking-[0.15em] text-mint-300 font-mono">
+    <div className={`h-full ${colors.bg} rounded-3xl overflow-hidden group hover:scale-[1.02] transition-transform duration-300`}>
+      <div className={`h-full flex ${isWide ? 'flex-row' : 'flex-col'}`}>
+        {/* Image section */}
+        <div className={`relative ${isWide ? 'w-1/2' : 'h-32 sm:h-40'} overflow-hidden`}>
+          <img 
+            src={project.image} 
+            alt={project.title}
+            className="w-full h-full object-cover"
+          />
+          {/* Overlay shape - gives that Givingli sticker feel */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
+        </div>
+        
+        {/* Content section */}
+        <div className={`flex-1 p-5 sm:p-6 flex flex-col ${isWide ? 'justify-center' : ''}`}>
+          <span className={`font-mono text-[10px] uppercase tracking-[0.15em] ${colors.accent}`}>
             {project.type}
           </span>
-        </div>
-        
-        <div className="mt-8">
-          <h3 className={`font-lora ${isFeature ? 'text-2xl sm:text-3xl' : 'text-xl'} text-neutral-300 leading-tight`}>
+          <h3 className={`font-lora ${isWide ? 'text-2xl sm:text-3xl' : 'text-lg sm:text-xl'} text-neutral-300 mt-2 leading-tight`}>
             {project.title}
           </h3>
-          {isFeature && (
-            <p className="font-geist text-sm text-neutral-200 mt-3 max-w-md leading-relaxed">
-              {project.description}
-            </p>
-          )}
+          <p className="font-geist text-sm text-neutral-200 mt-2 leading-relaxed line-clamp-2">
+            {project.description}
+          </p>
+          
+          {/* Arrow button */}
+          <div className="mt-auto pt-4">
+            <div className={`inline-flex items-center justify-center w-10 h-10 rounded-full bg-neutral-0/80 ${colors.accent} group-hover:bg-neutral-0 transition-colors`}>
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function VibrantGrid() {
+  return (
+    <section className="bg-cream-100 px-6 sm:px-8 py-16 sm:py-20 border-t border-cream-200">
+      <div className="max-w-5xl mx-auto flex flex-col gap-12">
+        {/* Section header */}
+        <div className="flex flex-col gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-200">Style 02</span>
+          <h2 className="font-lora text-[1.802rem] sm:text-[2.25rem] leading-[130%] text-neutral-300">
+            Vibrant
+          </h2>
+          <p className="font-geist text-neutral-200 mt-1 max-w-lg leading-relaxed">
+            Colorful, friendly cards inspired by Givingli and Amie. Soft pastels, rounded corners, playful energy.
+          </p>
         </div>
         
-        <div className="flex items-center gap-2 mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span className="font-geist text-xs uppercase tracking-wider text-mint-300">Read</span>
-          <span className="text-mint-300">→</span>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function EditorialGrid() {
-  return (
-    <section className="bg-cream-100 px-8 py-16">
-      <div className="max-w-4xl mx-auto flex flex-col gap-12">
-        <div className="border-b border-cream-300 pb-6">
-          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-200 block mb-2">
-            Volume III
-          </span>
-          <h2 className="font-lora text-[1.802rem] sm:text-[2.25rem] leading-[130%] text-neutral-300 italic">
-            Editorial
-          </h2>
-        </div>
-        <div className="grid grid-cols-12 gap-3">
+        {/* Grid */}
+        <div className="grid grid-cols-12 gap-4 sm:gap-5">
           {mockProjects.map((project, index) => (
-            <div key={project.id} className={`${colSpan[project.span]} min-h-[240px]`}>
-              <EditorialCard project={project} index={index} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// VARIATION 4: SOFT BOTANICAL
-// Nature-inspired, organic shapes, layered paper feel, gentle shadows
-// ─────────────────────────────────────────────────────────────────────────────
-function BotanicalCard({ project, index }) {
-  const patterns = [
-    'before:absolute before:top-2 before:right-2 before:w-6 before:h-6 before:border before:border-mint-300 before:rounded-full',
-    'before:absolute before:bottom-3 before:left-3 before:w-8 before:h-px before:bg-mint-300',
-    'before:absolute before:top-3 before:left-3 before:w-4 before:h-4 before:border-t before:border-l before:border-mint-300',
-    'before:absolute before:bottom-3 before:right-3 before:w-3 before:h-3 before:bg-mint-100 before:rounded-full',
-    'before:absolute before:top-2 before:right-3 before:w-6 before:h-px before:bg-mint-300',
-    'before:absolute before:bottom-4 before:left-4 before:w-5 before:h-5 before:border before:border-mint-200 before:rounded-sm',
-  ]
-  const pattern = patterns[index % patterns.length]
-  
-  return (
-    <div className={`h-full relative bg-neutral-0 rounded-xl border border-cream-200 flex flex-col p-6 group hover:shadow-lg hover:shadow-cream-300/50 transition-all duration-300 ${pattern}`}>
-      <div className="flex items-center gap-2 mb-auto">
-        <div className="w-1.5 h-1.5 rounded-full bg-mint-300" />
-        <span className="font-mono text-[10px] uppercase tracking-wider text-mint-300">
-          {project.type}
-        </span>
-      </div>
-      
-      <div className="mt-auto relative z-10">
-        <h3 className="font-lora text-lg text-neutral-300 leading-snug">
-          {project.title}
-        </h3>
-        <p className="font-geist text-xs text-neutral-100 mt-2 line-clamp-2 leading-relaxed">
-          {project.description}
-        </p>
-      </div>
-      
-      <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-mint-100/40 to-transparent rounded-br-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-    </div>
-  )
-}
-
-function BotanicalGrid() {
-  return (
-    <section className="bg-mint-100 px-8 py-16">
-      <div className="max-w-4xl mx-auto flex flex-col gap-10">
-        <div className="flex items-center gap-4">
-          <div className="w-8 h-px bg-mint-300" />
-          <h2 className="font-lora text-[1.802rem] leading-[130%] text-mint-400">
-            Soft Botanical
-          </h2>
-        </div>
-        <div className="grid grid-cols-12 gap-4">
-          {mockProjects.map((project, index) => (
-            <div key={project.id} className={`${colSpan[project.span]} min-h-[200px]`}>
-              <BotanicalCard project={project} index={index} />
+            <div key={project.id} className={`${colSpan[project.span]}`}>
+              <VibrantCard project={project} index={index} />
             </div>
           ))}
         </div>
@@ -239,27 +192,49 @@ export default function BentoExploration() {
   return (
     <main className="min-h-screen bg-cream-100">
       {/* Header */}
-      <div className="px-8 py-16 border-b border-cream-200">
-        <div className="max-w-4xl mx-auto">
-          <span className="font-mono text-xs text-neutral-200 uppercase tracking-wider">Exploration</span>
+      <div className="px-6 sm:px-8 py-16 sm:py-20 border-b border-cream-200">
+        <div className="max-w-5xl mx-auto">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-200">Exploration</span>
           <h1 className="font-lora text-[2.25rem] sm:text-[2.827rem] leading-[130%] text-neutral-300 mt-2">
             Bento Grid Variations
           </h1>
           <p className="font-geist text-neutral-200 mt-4 max-w-xl leading-relaxed">
-            Four distinct aesthetic approaches to the same grid system. Same spans, different vibes.
+            Two distinct aesthetic approaches using the same grid system. Same spans, different vibes.
           </p>
         </div>
       </div>
       
+      {/* Reference images */}
+      <div className="px-6 sm:px-8 py-12 bg-cream-200/50 border-b border-cream-200">
+        <div className="max-w-5xl mx-auto">
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-200 block mb-6">Reference Inspiration</span>
+          <div className="flex flex-wrap gap-4">
+            <img 
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-VuaOEHYhkeFEhfIxxDqVWAiPxnLtbk.png" 
+              alt="Shop reference" 
+              className="h-32 sm:h-40 w-auto rounded-lg border border-cream-300 object-cover"
+            />
+            <img 
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-ePT9A91eyrws2TzFiKcdDWxhPoYN7h.png" 
+              alt="Givingli reference" 
+              className="h-32 sm:h-40 w-auto rounded-lg border border-cream-300 object-cover"
+            />
+            <img 
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-hzINju89ZaNC8FL4FRIGzOF1XJ6oHf.png" 
+              alt="Amie reference" 
+              className="h-32 sm:h-40 w-auto rounded-lg border border-cream-300 object-cover"
+            />
+          </div>
+        </div>
+      </div>
+      
       {/* Grids */}
-      <BoldGrid />
       <MinimalGrid />
-      <EditorialGrid />
-      <BotanicalGrid />
+      <VibrantGrid />
       
       {/* Footer note */}
-      <div className="px-8 py-12 border-t border-cream-200">
-        <div className="max-w-4xl mx-auto">
+      <div className="px-6 sm:px-8 py-12 border-t border-cream-200">
+        <div className="max-w-5xl mx-auto">
           <p className="font-geist text-sm text-neutral-200">
             All variations use the same 12-column grid with span values of 4, 6, or 12.
           </p>
