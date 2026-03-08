@@ -293,15 +293,15 @@ const cutoutProjects = [
   { id: 6, title: 'Workspace', type: 'Productivity', span: 12, description: 'Tools and environments designed for focus and flow', image: cutoutImages.laptop },
 ]
 
-// New accent palette - soft neutrals separate from mint accent
-// These are warm grays and off-whites inspired by Stripe's card system
+// Vibrant color palette combining overlapping and vibrant styles
+// Card backgrounds with matching text colors for contrast
 const cutoutColors = [
-  { bg: 'bg-neutral-0', accent: 'bg-[#f8f6f3]' }, // pure white with warm gray accent
-  { bg: 'bg-[#f5f5f4]', accent: 'bg-[#fafaf9]' }, // stone-100 with lighter accent
-  { bg: 'bg-[#faf5ff]', accent: 'bg-[#f3e8ff]' }, // very soft lavender
-  { bg: 'bg-neutral-0', accent: 'bg-[#f0fdf4]' }, // white with soft sage accent
-  { bg: 'bg-[#fffbeb]', accent: 'bg-[#fef3c7]' }, // warm ivory with peach accent
-  { bg: 'bg-[#f8fafc]', accent: 'bg-[#f1f5f9]' }, // cool slate tones
+  { bg: 'bg-[#fef3c7]', accent: 'bg-[#fde68a]', type: 'text-amber-700', title: 'text-amber-900', desc: 'text-amber-800/80', icon: 'text-amber-700' }, // warm yellow
+  { bg: 'bg-[#1e3a5f]', accent: 'bg-[#1e4976]', type: 'text-sky-300', title: 'text-white', desc: 'text-white/70', icon: 'text-white/60', dark: true }, // deep blue
+  { bg: 'bg-[#fce7f3]', accent: 'bg-[#fbcfe8]', type: 'text-pink-600', title: 'text-pink-900', desc: 'text-pink-800/80', icon: 'text-pink-600' }, // soft pink
+  { bg: 'bg-mint-200', accent: 'bg-mint-300', type: 'text-mint-400', title: 'text-neutral-300', desc: 'text-neutral-200', icon: 'text-mint-400' }, // mint
+  { bg: 'bg-cream-200', accent: 'bg-cream-300', type: 'text-neutral-200', title: 'text-neutral-300', desc: 'text-neutral-200', icon: 'text-neutral-200' }, // cream
+  { bg: 'bg-[#1e3a5f]', accent: 'bg-[#1e4976]', type: 'text-sky-300', title: 'text-white', desc: 'text-white/70', icon: 'text-white/60', dark: true }, // deep blue
 ]
 
 function CutoutCard({ project, index }) {
@@ -309,24 +309,31 @@ function CutoutCard({ project, index }) {
   const isWide = project.span === 12
   
   return (
-    <div className={`relative h-full ${colors.bg} rounded-2xl overflow-hidden group border border-cream-200/60 hover:border-cream-300 hover:shadow-lg hover:shadow-neutral-300/5 transition-all duration-300`}>
-      {/* Expand button - top right, Stripe style */}
-      <button className="absolute top-4 right-4 z-10 w-9 h-9 rounded-lg bg-neutral-300 flex items-center justify-center opacity-80 hover:opacity-100 group-hover:scale-105 transition-all duration-200">
-        <svg className="w-4 h-4 text-neutral-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+    <div className={`relative h-full ${colors.bg} rounded-2xl overflow-hidden group transition-all duration-300`}>
+      {/* Expand button - frosted glass, minimal icon that becomes bold on hover */}
+      <button className="absolute top-4 right-4 z-10 w-8 h-8 rounded-lg bg-white/30 backdrop-blur-sm border border-white/20 flex items-center justify-center group/btn hover:bg-white/50 hover:border-white/40 transition-all duration-200">
+        <svg 
+          className={`w-3.5 h-3.5 ${colors.dark ? 'text-white/50 group-hover/btn:text-white' : 'text-neutral-300/50 group-hover/btn:text-neutral-300'} transition-colors duration-200`} 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor" 
+          strokeWidth={1.5}
+        >
+          {/* Simple two arrows pointing outward */}
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 4l6 6m0-6H4v6m16 10l-6-6m6 0v6h-6" className="group-hover/btn:stroke-[2]" />
         </svg>
       </button>
       
       <div className={`h-full flex ${isWide ? 'flex-row items-center' : 'flex-col'}`}>
         {/* Content section */}
         <div className={`${isWide ? 'w-1/2 order-1' : 'order-2'} p-5 sm:p-6`}>
-          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-200">
+          <span className={`font-mono text-[10px] uppercase tracking-[0.15em] ${colors.type}`}>
             {project.type}
           </span>
-          <h3 className={`font-lora ${isWide ? 'text-2xl sm:text-3xl' : 'text-lg'} text-neutral-300 mt-2 leading-tight`}>
+          <h3 className={`font-lora ${isWide ? 'text-2xl sm:text-3xl' : 'text-lg'} ${colors.title} mt-2 leading-tight`}>
             {project.title}
           </h3>
-          <p className="font-geist text-sm text-neutral-200 mt-2 leading-relaxed line-clamp-2">
+          <p className={`font-geist text-sm ${colors.desc} mt-2 leading-relaxed line-clamp-2`}>
             {project.description}
           </p>
         </div>
