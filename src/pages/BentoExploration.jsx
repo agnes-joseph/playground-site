@@ -310,6 +310,13 @@ function CutoutCard({ project, index }) {
   
   return (
     <div className={`relative h-full ${colors.bg} rounded-2xl overflow-hidden group border border-cream-200/60 hover:border-cream-300 hover:shadow-lg hover:shadow-neutral-300/5 transition-all duration-300`}>
+      {/* Expand button - top right, Stripe style */}
+      <button className="absolute top-4 right-4 z-10 w-9 h-9 rounded-lg bg-neutral-300 flex items-center justify-center opacity-80 hover:opacity-100 group-hover:scale-105 transition-all duration-200">
+        <svg className="w-4 h-4 text-neutral-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+        </svg>
+      </button>
+      
       <div className={`h-full flex ${isWide ? 'flex-row items-center' : 'flex-col'}`}>
         {/* Content section */}
         <div className={`${isWide ? 'w-1/2 order-1' : 'order-2'} p-5 sm:p-6`}>
@@ -322,14 +329,6 @@ function CutoutCard({ project, index }) {
           <p className="font-geist text-sm text-neutral-200 mt-2 leading-relaxed line-clamp-2">
             {project.description}
           </p>
-          
-          {/* Learn more */}
-          <div className="flex items-center gap-2 mt-4">
-            <span className="font-geist text-sm text-neutral-300">Learn more</span>
-            <svg className="w-4 h-4 text-neutral-300 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </div>
         </div>
         
         {/* Cut-out image section - floating product style with rounded corners */}
