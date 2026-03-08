@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import ProjectPage from './pages/ProjectPage'
+import BentoExploration from './pages/BentoExploration'
 import Footer from './components/Footer'
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/project/:slug" element={<ProjectPage />} />
+          <Route path="/bento" element={<BentoExploration />} />
         </Routes>
         <Footer />
       </div>
