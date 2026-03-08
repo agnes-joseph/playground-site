@@ -293,13 +293,15 @@ const cutoutProjects = [
   { id: 6, title: 'Workspace', type: 'Productivity', span: 12, description: 'Tools and environments designed for focus and flow', image: cutoutImages.laptop },
 ]
 
+// New accent palette - soft neutrals separate from mint accent
+// These are warm grays and off-whites inspired by Stripe's card system
 const cutoutColors = [
-  { bg: 'bg-neutral-0', shadow: true },
-  { bg: 'bg-cream-200', shadow: false },
-  { bg: 'bg-mint-100', shadow: false },
-  { bg: 'bg-neutral-0', shadow: true },
-  { bg: 'bg-[#fef3c7]', shadow: false },
-  { bg: 'bg-neutral-0', shadow: true },
+  { bg: 'bg-neutral-0', accent: 'bg-[#f8f6f3]' }, // pure white with warm gray accent
+  { bg: 'bg-[#f5f5f4]', accent: 'bg-[#fafaf9]' }, // stone-100 with lighter accent
+  { bg: 'bg-[#faf5ff]', accent: 'bg-[#f3e8ff]' }, // very soft lavender
+  { bg: 'bg-neutral-0', accent: 'bg-[#f0fdf4]' }, // white with soft sage accent
+  { bg: 'bg-[#fffbeb]', accent: 'bg-[#fef3c7]' }, // warm ivory with peach accent
+  { bg: 'bg-[#f8fafc]', accent: 'bg-[#f1f5f9]' }, // cool slate tones
 ]
 
 function CutoutCard({ project, index }) {
@@ -307,7 +309,7 @@ function CutoutCard({ project, index }) {
   const isWide = project.span === 12
   
   return (
-    <div className={`relative h-full ${colors.bg} ${colors.shadow ? 'shadow-sm hover:shadow-md' : ''} rounded-2xl overflow-hidden group transition-shadow duration-300`}>
+    <div className={`relative h-full ${colors.bg} rounded-2xl overflow-hidden group border border-cream-200/60 hover:border-cream-300 hover:shadow-lg hover:shadow-neutral-300/5 transition-all duration-300`}>
       <div className={`h-full flex ${isWide ? 'flex-row items-center' : 'flex-col'}`}>
         {/* Content section */}
         <div className={`${isWide ? 'w-1/2 order-1' : 'order-2'} p-5 sm:p-6`}>
@@ -330,17 +332,17 @@ function CutoutCard({ project, index }) {
           </div>
         </div>
         
-        {/* Cut-out image section - floating product style */}
+        {/* Cut-out image section - floating product style with rounded corners */}
         <div className={`relative ${isWide ? 'w-1/2 order-2' : 'order-1 aspect-square'} flex items-center justify-center p-6`}>
           <div className="relative w-4/5 aspect-square">
             <img 
               src={project.image} 
               alt={project.title}
-              className="w-full h-full object-contain drop-shadow-xl group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500"
+              className="w-full h-full object-cover rounded-2xl shadow-lg group-hover:scale-105 group-hover:-rotate-1 transition-transform duration-500"
             />
-            {/* Subtle circular background accent */}
-            <div className="absolute inset-0 -z-10 flex items-center justify-center">
-              <div className="w-3/4 h-3/4 rounded-full bg-cream-200/50" />
+            {/* Soft accent shape behind image */}
+            <div className="absolute inset-0 -z-10 flex items-center justify-center translate-x-2 translate-y-2">
+              <div className={`w-full h-full rounded-2xl ${colors.accent}`} />
             </div>
           </div>
         </div>
