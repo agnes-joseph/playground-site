@@ -309,7 +309,7 @@ function CutoutCard({ project, index }) {
   const isWide = project.span === 12
   
   return (
-    <div className={`relative h-full ${colors.bg} rounded-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-neutral-300/10`}>
+    <div className={`relative h-full ${colors.bg} rounded-2xl overflow-hidden group shadow-sm hover:shadow-md transition-shadow duration-300`}>
       {/* Expand button — glass effect at rest, brightens on card hover */}
       <button className="absolute top-4 right-4 z-10 w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all duration-200 group-hover:bg-white/50 group-hover:border-white/50">
         <svg
@@ -343,11 +343,11 @@ function CutoutCard({ project, index }) {
             <img 
               src={project.image} 
               alt={project.title}
-              className="w-full h-full object-cover rounded-2xl shadow-lg group-hover:scale-105 group-hover:-rotate-1 transition-transform duration-500"
+              className="w-full h-full object-cover rounded-2xl drop-shadow-xl group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500"
             />
-            {/* Soft offset accent shape behind image */}
-            <div className="absolute inset-0 -z-10 translate-x-2 translate-y-2">
-              <div className={`w-full h-full rounded-2xl ${colors.accent}`} />
+            {/* Circular accent shape behind image like v5 */}
+            <div className="absolute inset-0 -z-10 flex items-center justify-center">
+              <div className={`w-3/4 h-3/4 rounded-full ${colors.accent} opacity-50`} />
             </div>
           </div>
         </div>
