@@ -296,12 +296,12 @@ const cutoutProjects = [
 // Vibrant color palette combining overlapping and vibrant styles
 // Card backgrounds with matching text colors for contrast
 const cutoutColors = [
-  { bg: 'bg-[#fef3c7]', accent: 'bg-[#fde68a]', type: 'text-amber-700', title: 'text-amber-900', desc: 'text-amber-800/80', icon: 'text-amber-700' }, // warm yellow
-  { bg: 'bg-[#1e3a5f]', accent: 'bg-[#1e4976]', type: 'text-sky-300', title: 'text-white', desc: 'text-white/70', icon: 'text-white/60', dark: true }, // deep blue
-  { bg: 'bg-[#fce7f3]', accent: 'bg-[#fbcfe8]', type: 'text-pink-600', title: 'text-pink-900', desc: 'text-pink-800/80', icon: 'text-pink-600' }, // soft pink
-  { bg: 'bg-mint-200', accent: 'bg-mint-300', type: 'text-mint-400', title: 'text-neutral-300', desc: 'text-neutral-200', icon: 'text-mint-400' }, // mint
-  { bg: 'bg-cream-200', accent: 'bg-cream-300', type: 'text-neutral-200', title: 'text-neutral-300', desc: 'text-neutral-200', icon: 'text-neutral-200' }, // cream
-  { bg: 'bg-[#1e3a5f]', accent: 'bg-[#1e4976]', type: 'text-sky-300', title: 'text-white', desc: 'text-white/70', icon: 'text-white/60', dark: true }, // deep blue
+  { bg: 'bg-[#fef3c7]', accent: 'bg-[#fde68a]', type: 'text-amber-700', title: 'text-amber-900', desc: 'text-amber-800/80' }, // warm yellow
+  { bg: 'bg-[#e8f4f0]', accent: 'bg-[#d1ebe4]', type: 'text-teal-700', title: 'text-teal-900', desc: 'text-teal-800/80' }, // soft teal — replaces harsh dark blue
+  { bg: 'bg-[#fce7f3]', accent: 'bg-[#fbcfe8]', type: 'text-pink-600', title: 'text-pink-900', desc: 'text-pink-800/80' }, // soft pink
+  { bg: 'bg-mint-200', accent: 'bg-mint-300', type: 'text-mint-400', title: 'text-neutral-300', desc: 'text-neutral-200' }, // mint
+  { bg: 'bg-cream-200', accent: 'bg-cream-300', type: 'text-neutral-200', title: 'text-neutral-300', desc: 'text-neutral-200' }, // cream
+  { bg: 'bg-[#ede9fe]', accent: 'bg-[#ddd6fe]', type: 'text-violet-600', title: 'text-violet-900', desc: 'text-violet-800/80' }, // soft lavender
 ]
 
 function CutoutCard({ project, index }) {
@@ -309,18 +309,17 @@ function CutoutCard({ project, index }) {
   const isWide = project.span === 12
   
   return (
-    <div className={`relative h-full ${colors.bg} rounded-2xl overflow-hidden group transition-all duration-300`}>
-      {/* Expand button - frosted glass, minimal icon that becomes bold on hover */}
-      <button className="absolute top-4 right-4 z-10 w-8 h-8 rounded-lg bg-white/30 backdrop-blur-sm border border-white/20 flex items-center justify-center group/btn hover:bg-white/50 hover:border-white/40 transition-all duration-200">
-        <svg 
-          className={`w-3.5 h-3.5 ${colors.dark ? 'text-white/50 group-hover/btn:text-white' : 'text-neutral-300/50 group-hover/btn:text-neutral-300'} transition-colors duration-200`} 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor" 
-          strokeWidth={1.5}
+    <div className={`relative h-full ${colors.bg} rounded-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-neutral-300/10`}>
+      {/* Expand button — glass effect at rest, brightens on card hover */}
+      <button className="absolute top-4 right-4 z-10 w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all duration-200 group-hover:bg-white/50 group-hover:border-white/50">
+        <svg
+          className="w-3.5 h-3.5 text-neutral-300/40 transition-all duration-200 group-hover:text-neutral-300 group-hover:stroke-[2]"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={1.25}
         >
-          {/* Simple two arrows pointing outward */}
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4 4l6 6m0-6H4v6m16 10l-6-6m6 0v6h-6" className="group-hover/btn:stroke-[2]" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 4l6 6m0-6H4v6m16 10l-6-6m6 0v6h-6" />
         </svg>
       </button>
       
@@ -338,7 +337,7 @@ function CutoutCard({ project, index }) {
           </p>
         </div>
         
-        {/* Cut-out image section - floating product style with rounded corners */}
+        {/* Cut-out image section */}
         <div className={`relative ${isWide ? 'w-1/2 order-2' : 'order-1 aspect-square'} flex items-center justify-center p-6`}>
           <div className="relative w-4/5 aspect-square">
             <img 
@@ -346,8 +345,8 @@ function CutoutCard({ project, index }) {
               alt={project.title}
               className="w-full h-full object-cover rounded-2xl shadow-lg group-hover:scale-105 group-hover:-rotate-1 transition-transform duration-500"
             />
-            {/* Soft accent shape behind image */}
-            <div className="absolute inset-0 -z-10 flex items-center justify-center translate-x-2 translate-y-2">
+            {/* Soft offset accent shape behind image */}
+            <div className="absolute inset-0 -z-10 translate-x-2 translate-y-2">
               <div className={`w-full h-full rounded-2xl ${colors.accent}`} />
             </div>
           </div>
