@@ -1,15 +1,27 @@
-// Bento Grid Exploration: 2 Aesthetic Variations
+// Bento Grid Exploration: 4 Aesthetic Variations
 // 1. Minimal (Shop/Stripe style) - Clean, subtle, product-focused
 // 2. Vibrant (Givingli/Amie style) - Colorful card backgrounds
+// 3. Overlapping Image - Image extends beyond card boundaries (PayPal style)
+// 4. Cut-out Style - Transparent product cut-outs floating on content (Shop style)
 
-// Reference images for portfolio cards
+// Reference images for portfolio cards (square ratio for better proportions)
 const images = {
-  branding: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&h=600&fit=crop',
-  ecommerce: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=600&fit=crop',
-  mobile: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop',
-  editorial: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=600&fit=crop',
-  photography: 'https://images.unsplash.com/photo-1493863641943-9b68992a8d07?w=800&h=600&fit=crop',
-  dashboard: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=1000&fit=crop',
+  branding: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&h=600&fit=crop',
+  ecommerce: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop',
+  mobile: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=600&fit=crop',
+  editorial: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&h=600&fit=crop',
+  photography: 'https://images.unsplash.com/photo-1493863641943-9b68992a8d07?w=600&h=600&fit=crop',
+  dashboard: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
+}
+
+// Cut-out style images (products with transparent/clean backgrounds)
+const cutoutImages = {
+  headphones: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop',
+  watch: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop',
+  camera: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=400&fit=crop',
+  phone: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=400&fit=crop',
+  plant: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=400&fit=crop',
+  laptop: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&h=400&fit=crop',
 }
 
 // Mock data with different spans
@@ -37,8 +49,8 @@ function MinimalCard({ project }) {
   
   return (
     <div className="h-full bg-neutral-0 rounded-2xl border border-cream-200 flex flex-col overflow-hidden group hover:shadow-lg hover:shadow-cream-300/30 transition-all duration-300">
-      {/* Image area */}
-      <div className={`relative ${isWide ? 'h-48 sm:h-64' : 'h-36 sm:h-44'} overflow-hidden bg-cream-200`}>
+      {/* Image area - more square ratio */}
+      <div className={`relative ${isWide ? 'aspect-[2/1]' : 'aspect-square'} overflow-hidden bg-cream-200`}>
         <img 
           src={project.image} 
           alt={project.title}
@@ -120,8 +132,8 @@ function VibrantCard({ project, index }) {
   return (
     <div className={`h-full ${colors.bg} rounded-3xl overflow-hidden group hover:scale-[1.02] transition-transform duration-300`}>
       <div className={`h-full flex ${isWide ? 'flex-row' : 'flex-col'}`}>
-        {/* Image section */}
-        <div className={`relative ${isWide ? 'w-1/2' : 'h-32 sm:h-40'} overflow-hidden`}>
+        {/* Image section - square ratio for non-wide cards */}
+        <div className={`relative ${isWide ? 'w-1/2' : 'aspect-square'} overflow-hidden`}>
           <img 
             src={project.image} 
             alt={project.title}
@@ -186,6 +198,186 @@ function VibrantGrid() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// VARIATION 3: OVERLAPPING IMAGE (PayPal Style)
+// Image extends beyond card boundaries, content sits below
+// ─────────────────────────────────────────────────────────────────────────────
+
+const overlappingColors = [
+  { bg: 'bg-[#fef3c7]', accent: 'text-amber-800' }, // warm yellow like PayPal
+  { bg: 'bg-[#1e3a5f]', accent: 'text-white', textColor: 'text-white/90' }, // deep blue
+  { bg: 'bg-mint-200', accent: 'text-mint-400' },
+  { bg: 'bg-[#fce7f3]', accent: 'text-pink-700' },
+  { bg: 'bg-cream-200', accent: 'text-neutral-300' },
+  { bg: 'bg-[#1e3a5f]', accent: 'text-white', textColor: 'text-white/90' },
+]
+
+function OverlappingCard({ project, index }) {
+  const colors = overlappingColors[index % overlappingColors.length]
+  const isWide = project.span === 12
+  const isDark = colors.bg.includes('1e3a5f')
+  
+  return (
+    <div className={`relative h-full ${colors.bg} rounded-2xl overflow-visible group`}>
+      {/* Content area */}
+      <div className="p-5 sm:p-6 pb-24 sm:pb-28">
+        <h3 className={`font-lora ${isWide ? 'text-xl sm:text-2xl' : 'text-lg'} ${isDark ? 'text-white' : 'text-neutral-300'} leading-tight`}>
+          {project.title}
+        </h3>
+        {isWide && (
+          <p className={`font-geist text-sm mt-2 leading-relaxed ${isDark ? 'text-white/70' : 'text-neutral-200'}`}>
+            {project.description}
+          </p>
+        )}
+        
+        {/* Arrow link */}
+        <div className="flex items-center gap-2 mt-4">
+          <svg className={`w-5 h-5 ${isDark ? 'text-white/60' : 'text-neutral-200'} group-hover:translate-x-1 transition-transform`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </div>
+      </div>
+      
+      {/* Overlapping image - extends beyond card */}
+      <div className={`absolute ${isWide ? 'right-6 bottom-0 w-1/3 max-w-[200px]' : 'right-4 bottom-0 w-2/3 max-w-[180px]'} transform translate-y-2`}>
+        <div className="relative">
+          <img 
+            src={project.image} 
+            alt={project.title}
+            className="w-full aspect-square object-cover rounded-xl shadow-lg group-hover:-translate-y-2 transition-transform duration-300"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function OverlappingGrid() {
+  return (
+    <section className="bg-cream-100 px-6 sm:px-8 py-16 sm:py-20 border-t border-cream-200">
+      <div className="max-w-5xl mx-auto flex flex-col gap-12">
+        {/* Section header */}
+        <div className="flex flex-col gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-200">Style 03</span>
+          <h2 className="font-lora text-[1.802rem] sm:text-[2.25rem] leading-[130%] text-neutral-300">
+            Overlapping Image
+          </h2>
+          <p className="font-geist text-neutral-200 mt-1 max-w-lg leading-relaxed">
+            Images extend beyond card boundaries for depth. Inspired by PayPal and modern fintech interfaces.
+          </p>
+        </div>
+        
+        {/* Grid - extra padding bottom to accommodate overlapping images */}
+        <div className="grid grid-cols-12 gap-4 sm:gap-5 pb-8">
+          {mockProjects.map((project, index) => (
+            <div key={project.id} className={`${colSpan[project.span]} min-h-[200px]`}>
+              <OverlappingCard project={project} index={index} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VARIATION 4: CUT-OUT STYLE (Shop/Product Style)
+// Floating product images on solid color backgrounds
+// ─────────────────────────────────────────────────────────────────────────────
+
+const cutoutProjects = [
+  { id: 1, title: 'Sound Design', type: 'Audio', span: 6, description: 'Premium audio experience with spatial sound', image: cutoutImages.headphones },
+  { id: 2, title: 'Timepiece', type: 'Product', span: 6, description: 'Minimal watch design for modern lifestyle', image: cutoutImages.watch },
+  { id: 3, title: 'Photography', type: 'Capture', span: 4, description: 'Professional camera systems', image: cutoutImages.camera },
+  { id: 4, title: 'Mobile First', type: 'Digital', span: 4, description: 'App-driven experiences', image: cutoutImages.phone },
+  { id: 5, title: 'Biophilic', type: 'Interior', span: 4, description: 'Nature-inspired spaces', image: cutoutImages.plant },
+  { id: 6, title: 'Workspace', type: 'Productivity', span: 12, description: 'Tools and environments designed for focus and flow', image: cutoutImages.laptop },
+]
+
+const cutoutColors = [
+  { bg: 'bg-neutral-0', shadow: true },
+  { bg: 'bg-cream-200', shadow: false },
+  { bg: 'bg-mint-100', shadow: false },
+  { bg: 'bg-neutral-0', shadow: true },
+  { bg: 'bg-[#fef3c7]', shadow: false },
+  { bg: 'bg-neutral-0', shadow: true },
+]
+
+function CutoutCard({ project, index }) {
+  const colors = cutoutColors[index % cutoutColors.length]
+  const isWide = project.span === 12
+  
+  return (
+    <div className={`relative h-full ${colors.bg} ${colors.shadow ? 'shadow-sm hover:shadow-md' : ''} rounded-2xl overflow-hidden group transition-shadow duration-300`}>
+      <div className={`h-full flex ${isWide ? 'flex-row items-center' : 'flex-col'}`}>
+        {/* Content section */}
+        <div className={`${isWide ? 'w-1/2 order-1' : 'order-2'} p-5 sm:p-6`}>
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-200">
+            {project.type}
+          </span>
+          <h3 className={`font-lora ${isWide ? 'text-2xl sm:text-3xl' : 'text-lg'} text-neutral-300 mt-2 leading-tight`}>
+            {project.title}
+          </h3>
+          <p className="font-geist text-sm text-neutral-200 mt-2 leading-relaxed line-clamp-2">
+            {project.description}
+          </p>
+          
+          {/* Learn more */}
+          <div className="flex items-center gap-2 mt-4">
+            <span className="font-geist text-sm text-neutral-300">Learn more</span>
+            <svg className="w-4 h-4 text-neutral-300 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
+        </div>
+        
+        {/* Cut-out image section - floating product style */}
+        <div className={`relative ${isWide ? 'w-1/2 order-2' : 'order-1 aspect-square'} flex items-center justify-center p-6`}>
+          <div className="relative w-4/5 aspect-square">
+            <img 
+              src={project.image} 
+              alt={project.title}
+              className="w-full h-full object-contain drop-shadow-xl group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500"
+            />
+            {/* Subtle circular background accent */}
+            <div className="absolute inset-0 -z-10 flex items-center justify-center">
+              <div className="w-3/4 h-3/4 rounded-full bg-cream-200/50" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function CutoutGrid() {
+  return (
+    <section className="bg-cream-100 px-6 sm:px-8 py-16 sm:py-20 border-t border-cream-200">
+      <div className="max-w-5xl mx-auto flex flex-col gap-12">
+        {/* Section header */}
+        <div className="flex flex-col gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-200">Style 04</span>
+          <h2 className="font-lora text-[1.802rem] sm:text-[2.25rem] leading-[130%] text-neutral-300">
+            Cut-out Product
+          </h2>
+          <p className="font-geist text-neutral-200 mt-1 max-w-lg leading-relaxed">
+            Floating product images with clean backgrounds. Inspired by Shop and e-commerce interfaces.
+          </p>
+        </div>
+        
+        {/* Grid */}
+        <div className="grid grid-cols-12 gap-4 sm:gap-5">
+          {cutoutProjects.map((project, index) => (
+            <div key={project.id} className={`${colSpan[project.span]}`}>
+              <CutoutCard project={project} index={index} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // MAIN EXPLORATION PAGE
 // ─────────────────────────────────────────────────────────────────────────────
 export default function BentoExploration() {
@@ -231,6 +423,8 @@ export default function BentoExploration() {
       {/* Grids */}
       <MinimalGrid />
       <VibrantGrid />
+      <OverlappingGrid />
+      <CutoutGrid />
       
       {/* Footer note */}
       <div className="px-6 sm:px-8 py-12 border-t border-cream-200">
